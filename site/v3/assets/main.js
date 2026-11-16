@@ -2,11 +2,11 @@
   var b=document.body, bar=document.querySelector('.bar'), menu=document.querySelector('.bar__menu');
   var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   function start(){requestAnimationFrame(function(){requestAnimationFrame(function(){b.classList.remove('is-loading')})})}
-  var hi=document.querySelector('.hero__img img');
+  var hi=document.querySelector('.frame--hero img');
   if(hi && !hi.complete){hi.addEventListener('load',start);setTimeout(start,1200)}else start();
 
   if(menu){menu.addEventListener('click',function(){
-    var o=bar.classList.toggle('is-open');menu.setAttribute('aria-expanded',o);menu.firstChild.textContent=o?'Закрыть':'Меню';
+    var o=bar.classList.toggle('is-open');menu.setAttribute('aria-expanded',o);menu.textContent=o?'Закрыть':'Меню';
     document.documentElement.style.overflow=o?'hidden':'';
   });
   document.querySelectorAll('.bar__nav a').forEach(function(a){a.addEventListener('click',function(){
@@ -23,8 +23,8 @@
     if(!bar.classList.contains('is-open')) bar.classList.toggle('is-hidden',y>last && y>500);
     last=y;
     if(!reduce){var vh=window.innerHeight;px.forEach(function(img){
-      var r=img.parentNode.getBoundingClientRect(); if(r.bottom<0||r.top>vh) return;
-      var p=(r.top+r.height/2-vh/2)/vh; img.style.transform='translate3d(0,'+(p*-6).toFixed(2)+'%,0) scale(1.06)';
+      var r=img.closest('.frame').getBoundingClientRect(); if(r.bottom<0||r.top>vh) return;
+      var p=(r.top+r.height/2-vh/2)/vh; img.style.transform='translate3d(0,'+(p*-5).toFixed(2)+'%,0)';
     })}
     ticking=false;
   }
